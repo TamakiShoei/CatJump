@@ -24,7 +24,9 @@ public class WallController : MonoBehaviour
         }
         if (timeCounter >= 1.5)
         {
-            Instantiate(obj[0], new Vector3(9.3f, 0.0f, 0.0f), Quaternion.identity);
+            int rand = Random.Range(0, obj.Length - 1);
+
+            Instantiate(obj[rand], new Vector3(9.3f, 0.0f, 0.0f), Quaternion.identity);
             timeCounter = 0;
         }
         timeCounter += Time.deltaTime;
