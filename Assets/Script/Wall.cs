@@ -16,5 +16,18 @@ public class Wall : MonoBehaviour
     void Update()
     {
         transform.Translate(-speed * Time.deltaTime, 0.0f, 0.0f);
+
+        if (transform.position.x < -10)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("“–‚½‚è");
+        }
     }
 }
