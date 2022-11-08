@@ -8,7 +8,8 @@ public class GetScoreCollider : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("’Ê‚è”²‚¯¬Œ÷");
+            Debug.Log("‰ÁZ");
+            GameManager.Instance.IncrementScore(1);
         }
     }
 }

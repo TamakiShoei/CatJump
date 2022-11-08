@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < 4)
         {
             gravity = 0;
-            gravity += 5.0f;
+            gravity += 5.0f; 
         }
 
         if (transform.position.y < -5.5)
@@ -27,6 +27,6 @@ public class Player : MonoBehaviour
 
         transform.Translate(0.0f, gravity * Time.deltaTime, 0.0f);
         gravity -= 0.05f;
-        
+
     }
 }
