@@ -1,9 +1,8 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 {
-
     private static T instance;
     public static T Instance
     {
@@ -26,23 +25,19 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 
     virtual protected void Awake()
     {
-        // 他のゲームオブジェクトにアタッチされているか調べる
-        // アタッチされている場合は破棄する。
-        CheckInstance();
+        // 他のGameObjectにアタッチされているか調べる.
+        // アタッチされている場合は破棄する.
+        if (this != Instance)
+        {
+            Destroy(this);
+            //Destroy(this.gameObject);
+            Debug.LogError(
+                typeof(T) +
+                " は既に他のGameObjectにアタッチされているため、コンポーネントを破棄しました." +
+                " アタッチされているGameObjectは " + Instance.gameObject.name + " です.");
+            return;
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    protected bool CheckInstance()
-    {
-        if (instance == null)
-        {
-            instance = this as T;
-            return true;
-        }
-        else if (Instance == this)
-        {
-            return true;
-        }
-        Destroy(this);
-        return false;
-    }
 }

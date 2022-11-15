@@ -7,16 +7,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private int score;
     private bool isGameFinish;
 
-    private void Awake()
-    {
-        if (this != Instance)
-        {
-            Destroy(this);
-            return;
-        }
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     public void Initialize()
     {
         score = 0;
