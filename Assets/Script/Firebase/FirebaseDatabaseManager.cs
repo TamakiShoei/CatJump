@@ -19,7 +19,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
         reference = FirebaseDatabase.DefaultInstance.RootReference;
 
         // サンプル: 保存
-        var userData = new UserPlayData("tamaki", 10.5f);
+        var userData = new UserPlayData("taka", 10.5f);
         SaveUserData(userData);
 
         // サンプル: 取得
