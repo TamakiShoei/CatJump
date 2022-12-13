@@ -27,7 +27,8 @@ public class Wall : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("“–‚½‚è");
+            GameManager.Instance.GameFinished();
+            SceneManager.Instance.Change("Result");
         }
     }
 }
