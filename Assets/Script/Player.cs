@@ -21,8 +21,9 @@ public class Player : MonoBehaviour
 
         if (transform.position.y < -5.5)
         {
-            Debug.Log("—Ž‚¿‚½");
+            GameManager.Instance.GameFinished();
             Destroy(this.gameObject);
+            SceneManager.Instance.Change("Result");
         }
 
         transform.Translate(0.0f, gravity * Time.deltaTime, 0.0f);

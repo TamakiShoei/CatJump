@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Auth;
+using static UnityEngine.Networking.UnityWebRequest;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
-public class FireBaseAuthManager : MonoBehaviour
+public class FireBaseAuthManager : SingletonMonoBehaviour<FireBaseAuthManager>
 {
     public FirebaseAuth _auth;
     FirebaseUser _user;
     public FirebaseUser UserData { get { return _user; } }
     public delegate void CreateUser(bool result);
 
-    void Awake()
+    private void Start()
+    {
+        // 初期化
+        _auth = FirebaseAuth.DefaultInstance;
+    }
+    
+    public bool CheckFirstLogin()
     {
         // 初期化
         _auth = FirebaseAuth.DefaultInstance;
@@ -18,7 +26,6 @@ public class FireBaseAuthManager : MonoBehaviour
         // すでにユーザーが作られているのか確認
         if (_auth.CurrentUser == null)
         {
-            // まだユーザーができていないためユーザー作成
             Create((result) =>
             {
                 if (result)
@@ -30,11 +37,14 @@ public class FireBaseAuthManager : MonoBehaviour
                     Debug.Log("失敗");
                 }
             });
+
+            return true;
         }
         else
         {
             _user = _auth.CurrentUser;
             Debug.Log($"ログイン中: #{_user.UserId}");
+            return false;
         }
     }
 

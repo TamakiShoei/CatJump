@@ -3,7 +3,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using System;
 
-public class FirebaseDatabaseManager : MonoBehaviour
+public class FirebaseDatabaseManager : SingletonMonoBehaviour<FirebaseDatabaseManager>
 {
     readonly string USER_DATA_KEY = "users";
     DatabaseReference reference;
@@ -18,23 +18,23 @@ public class FirebaseDatabaseManager : MonoBehaviour
         _auth = obj.GetComponent<FireBaseAuthManager>()._auth;
         reference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        // サンプル: 保存
-        var userData = new UserPlayData("taka", 10.5f);
-        SaveUserData(userData);
+        //// サンプル: 保存
+        //var userData = new UserPlayData("taka", 10);
+        //SaveUserData(userData);
 
         // サンプル: 取得
-        GetUserData((result) =>
-        {
-            if (result == null)
-            {
-                Debug.LogWarning("失敗");
-            }
-            else
-            {
-                Debug.Log($"username: {result.username}");
-                Debug.Log($"time: {result.time}");
-            }
-        });
+        //GetUserData((result) =>
+        //{
+        //    if (result == null)
+        //    {
+        //        Debug.LogWarning("失敗");
+        //    }
+        //    else
+        //    {
+        //        Debug.Log($"username: {result.username}");
+        //        Debug.Log($"time: {result.score}");
+        //    }
+        //});
     }
 
     /// <summary>
@@ -42,6 +42,10 @@ public class FirebaseDatabaseManager : MonoBehaviour
     /// </summary>
     public void SaveUserData(UserPlayData data)
     {
+        GameObject obj = GameObject.Find("FirebaseAuthManager");
+        _auth = obj.GetComponent<FireBaseAuthManager>()._auth;
+        reference = FirebaseDatabase.DefaultInstance.RootReference;
+
         // 公式サンプル方法: https://firebase.google.com/docs/database/unity/save-data?authuser=0#write_update_or_delete_data_at_a_reference
         var json = JsonUtility.ToJson(data);
         reference.Child(USER_DATA_KEY).Child(_auth.CurrentUser.UserId).SetRawJsonValueAsync(json);
@@ -61,7 +65,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
                 else if (task.IsCompleted)
                     callback(new UserPlayData(
                         task.Result.Child("username").Value.ToString(),
-                        float.Parse(task.Result.Child("time").Value.ToString())));
+                        int.Parse(task.Result.Child("time").Value.ToString())));
             });
     }
 }
@@ -69,11 +73,11 @@ public class FirebaseDatabaseManager : MonoBehaviour
 public class UserPlayData
 {
     public string username;
-    public float time;
+    public int score;
 
-    public UserPlayData(string username, float time)
+    public UserPlayData(string username, int score)
     {
         this.username = username;
-        this.time = time;
+        this.score = score;
     }
 }
