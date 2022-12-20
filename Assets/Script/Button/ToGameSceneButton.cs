@@ -6,6 +6,7 @@ public class ToGameSceneButton : MonoBehaviour
 {
     public void OnClick()
     {
+        GameManager.Instance.Initialize();
         SceneManager.Instance.Change("Game");
     }
 }
