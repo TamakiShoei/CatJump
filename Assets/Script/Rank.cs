@@ -10,20 +10,30 @@ public class Rank : MonoBehaviour
 
     public void Start()
     {
-        List<UserPlayData> data;
-        data = FirebaseDatabaseManager.Instance.GetTopThreeData();
-        //Debug.Log(data.Length);
-        //for (int i = 0; i < data.Length; i++) 
-        //{
-        //    if (data[i] != null)
-        //    {
-        //        string tmpName = data[i].username;
-        //        int tmpScore = data[i].score;
-        //        //Debug.Log(tmpName);
-        //        //Debug.Log(tmpScore);
-        //        string inputStr = tmpName + "：" + tmpScore;
-        //        text[i].GetComponent<Text>().text = inputStr;
-        //    }
-        //}
+        StartCoroutine(GetTopThreeUserDatasContinue());
+    }
+
+    private IEnumerator GetTopThreeUserDatasContinue()
+    {
+        var topThreeData = FirebaseDatabaseManager.Instance.GetTopThreeData();
+
+        yield return StartCoroutine(topThreeData);
+
+        var datas = (List<UserPlayData>)topThreeData.Current;
+
+        for (int i = 0; i < datas.Count; i++)
+        {
+            if (datas[i] != null)
+            {
+                string tmpName = datas[i].username;
+                int tmpScore = datas[i].score;
+                string inputStr = (i + 1) + "位：" + tmpName + "：" + tmpScore;
+                text[i].GetComponent<Text>().text = inputStr;
+            }
+            else if (datas[i] == null)
+            {
+                text[i].GetComponent<Text>().text = (i + 1) + "位：記録なし";
+            }
+        }
     }
 }

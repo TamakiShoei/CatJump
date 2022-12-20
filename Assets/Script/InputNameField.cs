@@ -9,7 +9,8 @@ public class InputNameField : MonoBehaviour
     private InputField inputField;
     [SerializeField]
     private Transform InputNameCanvas;
-
+    [SerializeField]
+    private Text ErrorText;
 
     public void InputText()
     {
