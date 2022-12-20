@@ -18,34 +18,35 @@ public class FireBaseAuthManager : SingletonMonoBehaviour<FireBaseAuthManager>
         _auth = FirebaseAuth.DefaultInstance;
     }
     
-    public bool CheckFirstLogin()
+    public void Initialize()
     {
         // 初期化
         _auth = FirebaseAuth.DefaultInstance;
-
-        // すでにユーザーが作られているのか確認
-        if (_auth.CurrentUser == null)
+        Create((result) =>
         {
-            Create((result) =>
+            if (result)
             {
-                if (result)
-                {
-                    Debug.Log($"成功: #{_user.UserId}");
-                }
-                else
-                {
-                    Debug.Log("失敗");
-                }
-            });
+                Debug.Log($"成功: #{_user.UserId}");
+            }
+            else
+            {
+                Debug.Log("失敗");
+            }
+        });
 
-            return true;
-        }
-        else
-        {
-            _user = _auth.CurrentUser;
-            Debug.Log($"ログイン中: #{_user.UserId}");
-            return false;
-        }
+        //すでにユーザーが作られているのか確認
+        //if (_auth.CurrentUser == null)
+        //{
+ 
+
+        //    return true;
+        //}
+        //else
+        //{
+        //    _user = _auth.CurrentUser;
+        //    Debug.Log($"ログイン中: #{_user.UserId}");
+        //    return false;
+        //}
     }
 
     /// <summary>

@@ -7,14 +7,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private int score;
     private bool isGameFinish;
     [SerializeField]
-    //private GameObject eventSystem;
 
-    private void Start()
+    public void Initialize()
     {
-        //if (GameObject.Find("EventSystem") == null)
-        //{
-        //    Instantiate(eventSystem);
-        //}
         score = 0;
         isGameFinish = false;
     }
