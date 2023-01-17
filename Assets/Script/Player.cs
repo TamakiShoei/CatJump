@@ -13,10 +13,18 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //デバッグ用スペースキー
         if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < 4)
         {
             gravity = 0;
             gravity += 5.0f; 
+        }
+
+        //スマホタッチ用
+        if (Input.GetMouseButtonDown(0) && transform.position.y < 4)
+        {
+            gravity = 0;
+            gravity += 5.0f;
         }
 
         if (transform.position.y < -5.5)
