@@ -3,7 +3,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using System.Collections;
 using System.Collections.Generic;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+//using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using System.Net.NetworkInformation;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Net;

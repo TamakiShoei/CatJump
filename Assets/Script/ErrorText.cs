@@ -5,16 +5,26 @@ using UnityEngine.UI;
 
 public class ErrorText : MonoBehaviour
 {
-    private float counter = 0;
     [SerializeField]
-    private Text text;
+    private Text errorText;
 
-    void Update()
+    private float alpha;
+
+    private void Start()
     {
-        counter += Time.deltaTime;
-        if (counter > 5)
+        alpha = 1;
+        errorText.color = new Color(1, 0, 0, alpha);
+    }
+
+    private void Update()
+    {
+        alpha -= 0.7f * Time.deltaTime;
+        errorText.color = new Color(1, 0, 0, alpha);
+
+        if (alpha <= 0)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+            alpha = 1;
         }
     }
 }
