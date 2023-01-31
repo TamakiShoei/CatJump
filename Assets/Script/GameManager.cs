@@ -27,6 +27,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         isGameFinish = true;
         RecordManager.Instance.SaveScore(score);
+        PlayerPrefs.DeleteKey("PlayerName");
     }
 
     public bool GetIsGameFinish()

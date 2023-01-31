@@ -16,10 +16,11 @@ public class InputNameField : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetString("PlayerName", "NothingName") != "NothingName")
+        if (PlayerPrefs.GetString("PlayerName") == "")
         {
-            Destroy(InputNameCanvas.gameObject);
+            return;
         }
+        Destroy(InputNameCanvas.gameObject);
     }
     public void InputText()
     {
