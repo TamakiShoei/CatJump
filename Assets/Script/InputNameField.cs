@@ -16,10 +16,7 @@ public class InputNameField : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.GetString("PlayerName") == "")
-        {
-            return;
-        }
+
         Destroy(InputNameCanvas.gameObject);
     }
     public void InputText()
@@ -39,7 +36,6 @@ public class InputNameField : MonoBehaviour
         }
 
         RecordManager.Instance.SetName(inputField.text);
-        PlayerPrefs.SetString("PlayerName", inputField.text);
         Destroy(InputNameCanvas.gameObject);
     }
 }

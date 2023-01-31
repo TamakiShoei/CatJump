@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class QuitGameObserver : SingletonMonoBehaviour<QuitGameObserver>
 {
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.DeleteKey("PlayerName");
-    }
+    
 }
