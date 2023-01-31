@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    [SerializeField]
+    AudioClip jumpSE;
+
+    SoundManager soundManager;
     private float gravity = 1.0f;
     
     void Start()
     {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         transform.position = new Vector3(-7.0f, 3.3f, 0.0f);
     }
 
@@ -17,7 +23,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && transform.position.y < 4)
         {
             gravity = 0;
-            gravity += 8.0f; 
+            gravity += 8.0f;
+            soundManager.PlaySe(jumpSE);
         }
 
         //スマホタッチ用
@@ -25,6 +32,7 @@ public class Player : MonoBehaviour
         {
             gravity = 0;
             gravity += 8.0f;
+            soundManager.PlaySe(jumpSE);
         }
 
         if (transform.position.y < -6.0f)

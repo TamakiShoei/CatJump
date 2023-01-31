@@ -1,82 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class SoundData
-    {
-        public string name;
-        public AudioClip audioClip;
-    }
-
     [SerializeField]
-    private SoundData[] soundDatas;
-
+    AudioSource bgmSource;
     [SerializeField]
-    private AudioSource[] audioSourceList = new AudioSource[20];
+    AudioSource seSource;
 
-    //名前とキーとするサウンドデータマップ
-    private Dictionary<string, SoundData> soundDataDictionary = new Dictionary<string, SoundData>();
-
-    private void Awake()
+    public float BgmVolume
     {
-        for (int i = 0; i < audioSourceList.Length; i++)
+        get
         {
-            audioSourceList[i] = gameObject.AddComponent<AudioSource>();
+            return bgmSource.volume;
         }
-
-        //Dictionaryに追加
-        foreach(var soundData in soundDatas)
+        set
         {
-            soundDataDictionary.Add(soundData.name, soundData);
+            bgmSource.volume = Mathf.Clamp01(value);
         }
     }
 
-    private AudioSource GetUnusedAudioSource()
+    private void Start()
     {
-        for (int i = 0; i < audioSourceList.Length; i++)
+        GameObject soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        bool result = soundManager != null && soundManager != gameObject;
+
+        if (result)
         {
-            if (audioSourceList[i].isPlaying == false)
-            {
-                return audioSourceList[i];
-            }
+            Destroy(this.gameObject);
         }
-        return null;
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    private void Play(AudioClip clip)
+    public void PlayBgm(AudioClip clip)
     {
-        var audioSource = GetUnusedAudioSource();
-        if (audioSource == null)
+        if (clip == null)
         {
             return;
         }
-        audioSource.clip = clip;
-        audioSource.Play();
-    }
 
-    public void Play(string name)
-    {
-        if (soundDataDictionary.TryGetValue(name, out var soundData))
-        {
-            Play(soundData.audioClip);
-        }
-        else
-        {
-            Debug.LogWarning($"{name}という名前の効果音はありません");
-        }
-    }
+        bgmSource.clip = clip;
 
-    public void StopAll()
+        bgmSource.Play();
+    }
+    
+    public void PlaySe(AudioClip clip)
     {
-        foreach (var audioSource in audioSourceList)
+        if (clip == null)
         {
-            if (audioSource != null)
-            {
-                audioSource.Stop();
-            }
+            return;
         }
+
+        seSource.PlayOneShot(clip);
     }
 }

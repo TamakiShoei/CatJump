@@ -14,6 +14,13 @@ public class InputNameField : MonoBehaviour
     [SerializeField]
     private Text OverErrorText;
 
+    private void Start()
+    {
+        if (PlayerPrefs.GetString("PlayerName", "NothingName") != "NothingName")
+        {
+            Destroy(InputNameCanvas.gameObject);
+        }
+    }
     public void InputText()
     {
         EmptyErrorText.gameObject.SetActive(false);
@@ -31,6 +38,7 @@ public class InputNameField : MonoBehaviour
         }
 
         RecordManager.Instance.SetName(inputField.text);
+        PlayerPrefs.SetString("PlayerName", inputField.text);
         Destroy(InputNameCanvas.gameObject);
     }
 }

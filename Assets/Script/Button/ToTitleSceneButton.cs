@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class ToTitleSceneButton : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip MyaoSE;
+
+    SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+    }
+
     public void OnClick()
     {
-        Debug.Log("ƒ^ƒCƒgƒ‹‚Ö");
+        soundManager.PlaySe(MyaoSE);
         SceneManager.Instance.Change("Title");
     }
 }

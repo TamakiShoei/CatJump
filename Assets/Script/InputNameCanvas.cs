@@ -6,6 +6,7 @@ public class InputNameCanvas : MonoBehaviour
 {
     private void Start()
     {
+
         FireBaseAuthManager.Instance.Initialize();
     }
 }

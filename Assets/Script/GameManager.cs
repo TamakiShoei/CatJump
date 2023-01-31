@@ -6,7 +6,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     private int score;
     private bool isGameFinish;
-    [SerializeField]
 
     public void Initialize()
     {

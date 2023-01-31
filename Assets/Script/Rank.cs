@@ -27,12 +27,12 @@ public class Rank : MonoBehaviour
             {
                 string tmpName = datas[i].username;
                 int tmpScore = datas[i].score;
-                string inputStr = (i + 1) + "位：" + tmpName + "：" + tmpScore;
+                string inputStr = tmpName + "：" + tmpScore;
                 text[i].GetComponent<Text>().text = inputStr;
             }
             else if (datas[i] == null)
             {
-                text[i].GetComponent<Text>().text = (i + 1) + "位：記録なし";
+                text[i].GetComponent<Text>().text = (i + 1) + "記録なし";
             }
         }
     }

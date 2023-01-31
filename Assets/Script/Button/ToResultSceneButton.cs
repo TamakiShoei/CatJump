@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class ToResultSceneButton : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip MyaoSE;
+
+    SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
+    }
+
     public void OnClick()
     {
-        Debug.Log("test");
+        soundManager.PlaySe(MyaoSE);
         SceneManager.Instance.Change("Record");
     }
 }
